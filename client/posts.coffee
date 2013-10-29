@@ -19,8 +19,16 @@ Template.feed.posts = ->
     post
 
 
+Template.profile.is_your_friend = ->
+  you = Meteor.userId()
+  them = Session.get 'viewing_user'
 
-Template.profile.yours = ->
+  return isFriend(you, them)
+
+Template.profile.friends = ->
+  getFriends(Session.get 'viewing_user')
+
+Template.profile.is_you = ->
   Meteor.userId() == Session.get 'viewing_user'
 
 Template.profile.user = ->
@@ -40,8 +48,11 @@ Template.profile.posts = ->
 
 
 Template.profile.events =
-  'click button': ->
+  'click #addPost': ->
     Posts.insert
       time: new Date()
       text: $('textarea').val()
       creator: Session.get 'viewing_user'
+
+  'click #addFriend': ->
+    addFriendSymmetric(Meteor.userId(), Session.get('viewing_user'))

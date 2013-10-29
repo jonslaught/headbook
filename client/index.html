@@ -18,7 +18,7 @@
 
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">Headbook</a>
+      <a class="brand" href="/">Headbook</a>
       <ul class="nav">
         <li><a href="/profile">Profile</a></li>
         <li><a href="/feed">Feed</a></li>
@@ -71,7 +71,7 @@
 
   <blockquote>
     <p>{{text}}</p>
-    <small>By {{creator.profile.name}} at {{time}}</small>
+    <small>By <a href='/profile/{{creator._id}}'>{{creator.profile.name}}</a> at {{time}}</small>
   </blockquote>
 
 </template>
@@ -79,10 +79,26 @@
 
 <template name="profile">
   <h2>{{user.profile.name}}'s Profile</h2>
+  <p>{{user.profile.name}} has {{friends.length}} friends</p>
 
-  {{#if yours}}
+  {{#if is_you}}
     <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
-    <button class='btn btn-primary input-block-level'>Post</button>
+    <button id='addPost' class='btn btn-primary input-block-level'>Post</button>
+  {{else}}
+
+    {{#if is_your_friend}}
+    You and {{user.profile.name}} are friends!
+
+    {{else}}
+    <button id='addFriend' class='btn btn-primary'>Add Friend</button>
+
+    {{/if}}
+
+
+
+
+
+
   {{/if}}
   
 
