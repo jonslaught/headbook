@@ -4,6 +4,20 @@ Meteor.Router.add
 
   '/login': 'login'
   '/register': 'register'
-  '/profile': 'profile'
+
+
+  '/profile': ->
+    if Meteor.user()?
+      Session.set 'viewing_user', Meteor.userId()
+      return 'profile'
+    else
+      return 'login'
+
+  '/profile/:id': (id) ->
+    Session.set 'viewing_user', id
+    'profile'
+  
+
+
   '/feed': 'feed'
   '/directory': 'directory'

@@ -40,6 +40,27 @@
 </template>
 
 
+<template name="profile">
+  <h2>{{user.profile.name}}'s Profile</h2>
+
+  <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
+  <button class='btn btn-primary input-block-level'>Post</button>
+
+  <h3>{{posts.length}} posts</h3>
+
+  {{#each posts}}
+  <blockquote>
+    <p>{{text}}</p>
+    <small>{{time}}</small>
+  </blockquote>
+
+  {{/each}}
+
+
+</template>
+
+
+
 <template name="register">
   <h2>Create an account</h2>
   <div class='alert alert-error hide'></div>
