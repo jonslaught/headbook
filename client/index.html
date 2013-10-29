@@ -1,0 +1,127 @@
+<head>
+  <title>headbook</title>
+</head>
+
+<body>
+  {{>header}}
+
+  <div class='container'>
+    {{#isolate}} {{renderPage}} {{/isolate}}
+  </div>
+
+</body>
+
+
+
+
+<template name='header'>
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#">Headbook</a>
+      <ul class="nav">
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/feed">Feed</a></li>
+        <li><a href="/directory">Directory</a></li>
+      </ul>
+
+      <p class='navbar-text pull-right'>
+        {{#if currentUser}}
+          Logged in as {{currentUser.profile.name}}. <a id='logout'>Log out</a>
+        {{else}}
+          <a href='/login'>Login</a> or <a href='/register'>Register</a>
+        {{/if}}
+
+
+      </p>
+
+    </div>
+  </div>
+</template>
+
+
+<template name="register">
+  <h2>Create an account</h2>
+  <div class='alert alert-error hide'></div>
+  <div class='well form-horizontal'>
+    <div class="control-group">
+      <label class="control-label" for="inputName">Name</label>
+      <div class="controls">
+        <input type="text" id="inputName" placeholder="First Last">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="inputEmail">Email</label>
+      <div class="controls">
+        <input type="text" id="inputEmail" placeholder="you@wherever.com">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="inputPassword">Password</label>
+      <div class="controls">
+        <input type="password" id="inputPassword" placeholder="Password">
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Register</button>
+      </div>
+    </div>
+  </div>
+
+</template>
+
+
+<template name="login">
+  <h2>Sign in</h2>
+  <p>Need an account? <a href='/register'>Register!</a></p>
+  <div class='alert alert-error hide'></div>
+
+  <div class='well form-horizontal'>
+    <div class="control-group">
+      <label class="control-label" for="inputEmail">Email</label>
+      <div class="controls">
+        <input type="text" id="inputEmail" placeholder="you@wherever.com">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="inputPassword">Password</label>
+      <div class="controls">
+        <input type="password" id="inputPassword" placeholder="Password">
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Sign in</button>
+      </div>
+    </div>
+  </div>
+
+</template>
+
+
+
+
+
+
+
+
+
+
+<template name="detect">
+
+  {{#if currentUser}}
+    
+
+
+    {{#isolate}} {{renderPage}} {{/isolate}}
+
+
+
+  {{else}}
+
+    {{> sign_in}}
+
+  {{/if}}
+
+</template>
