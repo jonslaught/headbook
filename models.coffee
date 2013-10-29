@@ -24,9 +24,10 @@
   addFriend(to, from)
 
 @getFriends = (userId) ->
-  Friends.find
+  friendships = Friends.find
     from: userId
   .fetch()
+  return (Meteor.users.findOne(f.to) for f in friendships)
 
 
 if Meteor.isServer
@@ -55,6 +56,17 @@ if Meteor.isServer
           name: 'Ned'
         password: 'okilydokily'
         
+      Posts.insert
+        creator: ned
+        text: 'Okily dokily!'
+
+      Posts.insert
+        creator: bart
+        text: 'Eat my shorts!'
+
+      Posts.insert
+        creator: homer
+        text: 'Doh!!!'
 
       addFriendSymmetric(bart,homer)
 

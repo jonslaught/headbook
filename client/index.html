@@ -47,7 +47,7 @@
 
   <ul>
   {{#each users}}
-  <li><a href='/profile/{{_id}}'>{{profile.name}}</a></li>
+  <li>{{>user_link}}
   {{/each}}
   </ul>
 
@@ -55,17 +55,29 @@
 
 
 <template name='feed'>
-  <h2>News feed</h2>
-  <p>{{posts.length}} posts</p>
+  {{#if currentUser}}
+
+    <h2>News feed</h2>
+    <p>{{posts.length}} posts</p>
 
 
-  {{#each posts}}
-    {{>post}}
-  {{/each}}
+    {{#each posts}}
+      {{>post}}
+    {{/each}}
+
+  {{else}}
+    {{>login_warning}}
+  {{/if}}
 
 </template>
 
+<template name='login_warning'>
+  <div class='alert'>Please <a href='/login'>login</a> to see this page.</div>
+</template>
 
+<template name='user_link'>
+  <a href='/profile/{{_id}}'>{{profile.name}}</a></li>
+</template>
 
 <template name='post'>
 
@@ -78,36 +90,42 @@
 
 
 <template name="profile">
-  <h2>{{user.profile.name}}'s Profile</h2>
-  <p>{{user.profile.name}} has {{friends.length}} friends</p>
+  {{#if currentUser}}
+    <h2>{{user.profile.name}}'s Profile</h2>
+    <p>{{user.profile.name}} has {{friends.length}} friends</p>
+    <ul>
+      {{#each friends}}
+        <li>{{>user_link}}</li>
+      {{/each}}
+    </ul>
 
-  {{#if is_you}}
-    <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
-    <button id='addPost' class='btn btn-primary input-block-level'>Post</button>
-  {{else}}
-
-    {{#if is_your_friend}}
-    You and {{user.profile.name}} are friends!
-
+    {{#if is_you}}
+      <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
+      <button id='addPost' class='btn btn-primary input-block-level'>Post</button>
     {{else}}
-    <button id='addFriend' class='btn btn-primary'>Add Friend</button>
+
+      {{#if is_your_friend}}
+      You and {{user.profile.name}} are friends!
+
+      {{else}}
+      <button id='addFriend' class='btn btn-primary'>Add Friend</button>
+
+      {{/if}}
 
     {{/if}}
+    
+
+    <h3>{{posts.length}} posts</h3>
+
+    {{#each posts}}
+      {{>post}}
+    {{/each}}
 
 
-
-
-
-
+  {{else}}
+    {{>login_warning}}
   {{/if}}
-  
 
-  <h3>{{posts.length}} posts</h3>
-
-  {{#each posts}}
-    {{>post}}
-
-  {{/each}}
 
 
 </template>

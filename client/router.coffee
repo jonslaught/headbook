@@ -1,17 +1,17 @@
 Meteor.Router.add
 
-  '': 'feed'
+  '': ->
+    if Meteor.user()
+      'feed'
+    else
+      'login'
 
   '/login': 'login'
   '/register': 'register'
 
-
   '/profile': ->
-    if Meteor.user()?
-      Session.set 'viewing_user', Meteor.userId()
-      return 'profile'
-    else
-      return 'login'
+    Session.set 'viewing_user', Meteor.userId()
+    'profile'
 
   '/profile/:id': (id) ->
     Session.set 'viewing_user', id

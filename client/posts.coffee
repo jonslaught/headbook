@@ -4,7 +4,7 @@ Template.directory.users = ->
   Meteor.users.find().fetch()
 
 Template.feed.posts = ->
-  friends = Meteor.users.find().fetch() # narrow to your friends
+  friends = getFriends(Meteor.userId()) # narrow to your friends
   console.log friends
 
   posts = Posts.find
