@@ -40,19 +40,56 @@
 </template>
 
 
+<template name='directory'>
+  <h2>Directory</h2>
+
+  We have {{users.length}} users
+
+  <ul>
+  {{#each users}}
+  <li><a href='/profile/{{_id}}'>{{profile.name}}</a></li>
+  {{/each}}
+  </ul>
+
+</template>
+
+
+<template name='feed'>
+  <h2>News feed</h2>
+  <p>{{posts.length}} posts</p>
+
+
+  {{#each posts}}
+    {{>post}}
+  {{/each}}
+
+</template>
+
+
+
+<template name='post'>
+
+  <blockquote>
+    <p>{{text}}</p>
+    <small>By {{creator.profile.name}} at {{time}}</small>
+  </blockquote>
+
+</template>
+
+
 <template name="profile">
   <h2>{{user.profile.name}}'s Profile</h2>
 
-  <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
-  <button class='btn btn-primary input-block-level'>Post</button>
+  {{#if yours}}
+    <textarea rows="3" class='input-block-level' placeholder='Post something dumb...'></textarea>
+    <button class='btn btn-primary input-block-level'>Post</button>
+  {{/if}}
+  
 
   <h3>{{posts.length}} posts</h3>
 
   {{#each posts}}
-  <blockquote>
-    <p>{{text}}</p>
-    <small>{{time}}</small>
-  </blockquote>
+    {{>post}}
 
   {{/each}}
 
