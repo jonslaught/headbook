@@ -1,5 +1,4 @@
 
-
 Template.header.events =
   'click #logout': ->
     Meteor.logout()
@@ -51,7 +50,7 @@ doRegister = ->
   Accounts.createUser opt, callback
 
 Template.register.events =
-  'click button': -> 'callback'
+  'click button': -> doRegister()
   'keyup input': (event) ->
     if event.which == 13 #enter key
       doRegister()
